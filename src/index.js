@@ -61,8 +61,8 @@ function createBankList(banks) {
       .map((bank, index) => {
         return `<li class="bank__item">
         <p>${index + 1}. <span>${bank.name}</span></p>
-        <button type="button" class="button--edit">Edit</button>
-        <button type="button" class="button--delete">Delete</button>
+        <button type="button" class="button--edit"></button>
+        <button type="button" class="button--delete"></button>
       </li>`;
       })
       .join('')
@@ -70,16 +70,32 @@ function createBankList(banks) {
 
   const titleList = document.querySelectorAll('.bank__item span');
 
+  // Проба пера--------------------------------------------------->
+  
+  const bankListItem = document.querySelectorAll('.bank__item')
+  
+  bankListItem.forEach(elem => {
+    elem.addEventListener('click', (event) => {
+      event.target.closest('li').classList.toggle('bank__item--active')
+
+      console.dir(event.target.closest('li'));
+
+    })
+  })
+
+  // ---------------------------------------------------------->
+
   titleList.forEach(elem => {
     elem.addEventListener('click', elementClickFinder);
   });
 }
 
+ 
+
 function elementClickFinder(event) {
   const currentBank = banks.find(
     bank => bank.name === event.target.textContent
   );
-  // console.log(currentBank);
   renderInfMarkup(currentBank);
 }
 
@@ -90,6 +106,7 @@ bankBtn.addEventListener('click', openModal);
 function openModal() {
   const modalMarkup = `<div class="modal">
         <div class="modal-content">
+          <h2>Fill in bank's info</h2>
           <form class="form">
             <label>
               Bank name
@@ -111,7 +128,12 @@ function openModal() {
               Loan term
               <input type="text" name="loanTerm">
             </label>
-            <button type="submit" class="button" data-action="add">Add bank</button>
+            <div class="modal-buttons">
+              <button type="submit" class="button" data-action="add">Add bank</button>
+              <button  class="button" id="reset-button">Reset</button>
+              <button class="button" id="cancel-button">Cancel</button>      
+            </div>
+            
           </form>
         </div>
       </div> `;
@@ -119,7 +141,24 @@ function openModal() {
 
   const bankForm = document.querySelector('.form');
 
+  const resetModalBtn = document.querySelector('#reset-button')
+
+  const cancelModalBtn = document.querySelector('#cancel-button')
+
+
   bankForm.addEventListener('submit', addBank);
+
+  resetModalBtn.addEventListener('click', (event) => {
+    event.preventDefault()
+    bankForm.reset();
+  })
+
+  cancelModalBtn.addEventListener('click', (event) => {
+    event.preventDefault()
+    modal.innerHTML = '';
+  })
+
+  
 }
 
 function addBank(evt) {

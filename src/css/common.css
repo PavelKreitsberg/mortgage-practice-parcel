@@ -87,10 +87,36 @@ p {
   border-radius: 4px;
 }
 
+.bank__item--active {
+  background-color: aquamarine;
+}
+
 .button--edit {
   display: block;
   margin-left: auto;
-  margin-right: 5px;
+  margin-right: 10px;
+  border: none;
+
+  background-color: transparent;
+
+  background-image: url(../images/edit-button.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 20px;
+  height: 20px;
+}
+
+.button--delete {
+  display: block;
+  border: none;
+
+  background-color: transparent;
+
+  background-image: url(../images/close-button.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 20px;
+  height: 20px;
 }
 
 .feature__list {
@@ -167,4 +193,10 @@ input {
 
 label {
   margin-bottom: 10px;
+}
+
+.modal-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }

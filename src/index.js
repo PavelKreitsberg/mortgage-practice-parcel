@@ -67,36 +67,6 @@ function createBankList(banks) {
       })
       .join('')
   );
-
-  const titleList = document.querySelectorAll('.bank__item span');
-
-  // Проба пера--------------------------------------------------->
-  
-  const bankListItem = document.querySelectorAll('.bank__item')
-  
-  bankListItem.forEach(elem => {
-    elem.addEventListener('click', (event) => {
-      event.target.closest('li').classList.toggle('bank__item--active')
-
-      console.dir(event.target.closest('li'));
-
-    })
-  })
-
-  // ---------------------------------------------------------->
-
-  titleList.forEach(elem => {
-    elem.addEventListener('click', elementClickFinder);
-  });
-}
-
- 
-
-function elementClickFinder(event) {
-  const currentBank = banks.find(
-    bank => bank.name === event.target.textContent
-  );
-  renderInfMarkup(currentBank);
 }
 
 createBankList(banks);
@@ -207,4 +177,48 @@ function renderInfMarkup({
           </li>`;
 
   loanInformation.innerHTML = loanInfoMarkup;
+}
+
+// Делегирование
+
+const bankList = document.querySelector('.banks')
+
+bankList.addEventListener('click', (event) => {
+    
+  if (event.target.nodeName === 'UL') {
+    return;
+  }
+
+  const activeBankName = event.target.closest('li').firstElementChild.firstElementChild.textContent
+
+  if (event.target.nodeName === 'BUTTON') {
+
+    event.target.className === 'button--delete' ? removeBankFromList(activeBankName) : editBankInfo(activeBankName);
+
+    return;
+
+  }    
+
+  event.target.closest('li').classList.toggle('bank__item--active')
+
+  const currentBank = banks.find(bank => bank.name === activeBankName);
+
+  renderInfMarkup(currentBank);
+
+})
+
+
+// To do
+
+
+function removeBankFromList(bank) {
+
+  console.log(`Bank ${bank} deleted from the list`);
+
+}
+
+function editBankInfo(bank) {
+
+  console.log(`Let's update bank ${bank} info`);
+
 }

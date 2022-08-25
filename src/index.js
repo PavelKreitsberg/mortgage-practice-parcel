@@ -80,23 +80,23 @@ function openModal() {
           <form class="form">
             <label>
               Bank name
-              <input type="text" name="name">
+              <input type="text" name="name" required>
             </label>
             <label>
               Interest rate, %
-              <input type="text" name="interestRate">
+              <input type="text" name="interestRate" required>
             </label>
             <label>
               Max loan, $
-              <input type="text" name="maxLoan">
+              <input type="text" name="maxLoan" required>
             </label>
             <label>
               Min payment, $
-              <input type="text" name="minPayment">
+              <input type="text" name="minPayment" required>
             </label>
             <label>
               Loan term
-              <input type="text" name="loanTerm">
+              <input type="text" name="loanTerm" required>
             </label>
             <div class="modal-buttons">
               <button type="submit" class="button" data-action="add">Add bank</button>
@@ -186,7 +186,6 @@ bankList.addEventListener('click', event => {
   }
 
   const currentActiveBank = document.querySelector('.bank__item--active');
-  console.log(currentActiveBank);
 
   if (currentActiveBank) {
     currentActiveBank.classList.remove('bank__item--active');
@@ -194,6 +193,8 @@ bankList.addEventListener('click', event => {
 
   const activeBankName = event.target.closest('li').firstElementChild.firstElementChild.textContent;
   const currentBank = banks.find(bank => bank.name === activeBankName);
+
+  console.log(activeBankName);
 
   if (event.target.nodeName === 'BUTTON') {
     event.target.className === 'button--delete'
@@ -257,5 +258,7 @@ function editBankInfo({ name, interestRate, maxLoan, minPayment, loanTerm }) {
 }
 
 function removeBankFromList(bank) {
-  console.log(`Bank ${bank} deleted from the list`);
+  // console.log(`Bank ${bank} deleted from the list`);
+
+
 }

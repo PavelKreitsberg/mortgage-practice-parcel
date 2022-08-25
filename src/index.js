@@ -111,24 +111,21 @@ function openModal() {
 
   const bankForm = document.querySelector('.form');
 
-  const resetModalBtn = document.querySelector('#reset-button')
+  const resetModalBtn = document.querySelector('#reset-button');
 
-  const cancelModalBtn = document.querySelector('#cancel-button')
-
+  const cancelModalBtn = document.querySelector('#cancel-button');
 
   bankForm.addEventListener('submit', addBank);
 
-  resetModalBtn.addEventListener('click', (event) => {
-    event.preventDefault()
+  resetModalBtn.addEventListener('click', event => {
+    event.preventDefault();
     bankForm.reset();
-  })
+  });
 
-  cancelModalBtn.addEventListener('click', (event) => {
-    event.preventDefault()
+  cancelModalBtn.addEventListener('click', event => {
+    event.preventDefault();
     modal.innerHTML = '';
-  })
-
-  
+  });
 }
 
 function addBank(evt) {
@@ -181,51 +178,84 @@ function renderInfMarkup({
 
 // Делегирование
 
-const bankList = document.querySelector('.banks')
+const bankList = document.querySelector('.banks');
 
-bankList.addEventListener('click', (event) => {
-    
+bankList.addEventListener('click', event => {
   if (event.target.nodeName === 'UL') {
     return;
   }
 
-    const currentActiveBank = document.querySelector('.bank__item--active');
-  console.log(currentActiveBank)
+  const currentActiveBank = document.querySelector('.bank__item--active');
+  console.log(currentActiveBank);
 
   if (currentActiveBank) {
     currentActiveBank.classList.remove('bank__item--active');
-  };
+  }
 
-  const activeBankName = event.target.closest('li').firstElementChild.firstElementChild.textContent
-
-  if (event.target.nodeName === 'BUTTON') {
-
-    event.target.className === 'button--delete' ? removeBankFromList(activeBankName) : editBankInfo(activeBankName);
-
-    return;
-
-  }    
-
-  event.target.closest('li').classList.toggle('bank__item--active')
-
+  const activeBankName = event.target.closest('li').firstElementChild.firstElementChild.textContent;
   const currentBank = banks.find(bank => bank.name === activeBankName);
 
+  if (event.target.nodeName === 'BUTTON') {
+    event.target.className === 'button--delete'
+      ? removeBankFromList(activeBankName)
+      : editBankInfo(currentBank);
+
+    return;
+  }
+
+  event.target.closest('li').classList.toggle('bank__item--active');
+
   renderInfMarkup(currentBank);
-
-})
-
+});
 
 // To do
 
-
 function removeBankFromList(bank) {
-
   console.log(`Bank ${bank} deleted from the list`);
-
 }
 
-function editBankInfo(bank) {
+function editBankInfo({ name, interestRate, maxLoan, minPayment, loanTerm }) {
+  const modalEditMarkup = `<div class="modal">
+        <div class="modal-content">
+          <h2>Update bank's info</h2>
+          <form class="form">
+            <label>
+              Bank name
+              <input type="text" name="name">
+            </label>
+            <label>
+              Interest rate, %
+              <input type="text" name="interestRate">
+            </label>
+            <label>
+              Max loan, $
+              <input type="text" name="maxLoan">
+            </label>
+            <label>
+              Min payment, $
+              <input type="text" name="minPayment">
+            </label>
+            <label>
+              Loan term
+              <input type="text" name="loanTerm">
+            </label>
+            <div class="modal-buttons">
+              <button type="submit" class="button" data-action="add">Update bank</button>
+              <button class="button" id="cancel-button">Cancel</button>      
+            </div>
+            
+          </form>
+        </div>
+      </div> `;
+  modal.innerHTML = modalEditMarkup;
 
-  console.log(`Let's update bank ${bank} info`);
+  document.querySelector('[name="name"]').value = name;
+  document.querySelector('[name="interestRate"]').value = interestRate;
+  document.querySelector('[name="maxLoan"]').value = maxLoan;
+  document.querySelector('[name="minPayment"]').value = minPayment;
+  document.querySelector('[name="loanTerm"]').value = loanTerm;
+}
 
+function removeBankFromList(bank) {
+  console.log(`Bank ${bank} deleted from the list`);
 }

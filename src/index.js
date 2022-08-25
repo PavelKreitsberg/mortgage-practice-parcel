@@ -255,10 +255,25 @@ function editBankInfo({ name, interestRate, maxLoan, minPayment, loanTerm }) {
   document.querySelector('[name="maxLoan"]').value = maxLoan;
   document.querySelector('[name="minPayment"]').value = minPayment;
   document.querySelector('[name="loanTerm"]').value = loanTerm;
+
+  const bankForm = document.querySelector('.form');
+
+  const cancelModalBtn = document.querySelector('#cancel-button');
+
+  bankForm.addEventListener('submit', updateBank);
+
+  cancelModalBtn.addEventListener('click', event => {
+    event.preventDefault();
+    modal.innerHTML = '';
+  });
 }
 
 function removeBankFromList(bank) {
-  // console.log(`Bank ${bank} deleted from the list`);
+  console.log(`Bank ${bank} deleted from the list`);
+}
 
-
+function updateBank(event) {
+  event.preventDefault();
+  modal.innerHTML = '';
+  console.log('Bank was updated');
 }

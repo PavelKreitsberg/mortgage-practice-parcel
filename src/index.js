@@ -189,6 +189,13 @@ bankList.addEventListener('click', (event) => {
     return;
   }
 
+  const currentActiveBank = document.querySelector('.bank__item--active');
+  console.log(currentActiveBank)
+
+  if (currentActiveBank) {
+    currentActiveBank.classList.remove('bank__item--active');
+  };
+
   const activeBankName = event.target.closest('li').firstElementChild.firstElementChild.textContent
 
   if (event.target.nodeName === 'BUTTON') {
@@ -202,7 +209,7 @@ bankList.addEventListener('click', (event) => {
   event.target.closest('li').classList.toggle('bank__item--active')
 
   const currentBank = banks.find(bank => bank.name === activeBankName);
-
+  
   renderInfMarkup(currentBank);
 
 })

@@ -284,6 +284,13 @@ function removeBankFromList(bank) {
 
 function updateBank(event) {
   event.preventDefault();
+
+  const bankName = event.currentTarget.elements.name.value;
   modal.innerHTML = '';
-  console.log('Bank was updated');
+  const delleteBankOld = banks.findIndex(el => el.name === bankName);
+  banks.splice(delleteBankOld, 1);
+
+  createBankList(banks);
+
+  addBank(event);
 }

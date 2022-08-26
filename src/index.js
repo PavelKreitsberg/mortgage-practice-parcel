@@ -280,11 +280,16 @@ function editBankInfo({ name, interestRate, maxLoan, minPayment, loanTerm }) {
 
 function removeBankFromList(bankName) {
   banks = banks.filter(bank => bank.name !== bankName);
-  createBankList(banks)
+  createBankList(banks);
 }
 
 function updateBank(event) {
   event.preventDefault();
-  modal.innerHTML = '';
-  console.log('Bank was updated');
+
+  const bankOldName = event.currentTarget.elements.name.value;
+  const delleteBank = banks.findIndex(el => el.name === bankOldName);
+
+  banks.splice(delleteBank, 1);
+  createBankList(banks);
+  addBank(event);
 }

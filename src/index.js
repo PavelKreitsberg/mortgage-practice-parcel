@@ -211,10 +211,6 @@ bankList.addEventListener('click', event => {
 
 // To do
 
-function removeBankFromList(bank) {
-  console.log(`Bank ${bank} deleted from the list`);
-}
-
 function editBankInfo({ name, interestRate, maxLoan, minPayment, loanTerm }) {
   const modalEditMarkup = `<div class="modal">
         <div class="modal-content">
@@ -268,8 +264,18 @@ function editBankInfo({ name, interestRate, maxLoan, minPayment, loanTerm }) {
   });
 }
 
+const removeBtn = document.querySelector('.button--delete')
+
 function removeBankFromList(bank) {
   console.log(`Bank ${bank} deleted from the list`);
+  // const currentBank = document.querySelector('.bank__item--active')
+  const currentBank = event.target.closest('li').firstElementChild.firstElementChild.textContent;
+  const banksListUpd = banks.filter(bank =>
+    bank.name !== currentBank
+  )
+  // console.log(banksListUpd)
+  
+  createBankList(banksListUpd)
 }
 
 function updateBank(event) {

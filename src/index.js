@@ -1,4 +1,4 @@
-const banks = [
+let banks = [
   {
     id: '435tr34wrt',
     name: 'Mono',
@@ -278,8 +278,9 @@ function editBankInfo({ name, interestRate, maxLoan, minPayment, loanTerm }) {
   });
 }
 
-function removeBankFromList(bank) {
-  console.log(`Bank ${bank} deleted from the list`);
+function removeBankFromList(bankName) {
+  banks = banks.filter(bank => bank.name !== bankName);
+  createBankList(banks)
 }
 
 function updateBank(event) {

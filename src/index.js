@@ -55,6 +55,15 @@ root.append(banksList, banksInformation);
 
 function createBankList(banks) {
   bankListUl.innerHTML = '';
+  if (banks.length === 0) {
+    bankListUl
+      .insertAdjacentHTML(
+        'afterbegin',
+        `<p>Bank list is empty.</p> <p>Please, click button to add.</p>`
+      )
+      .join('');
+    return;
+  }
   bankListUl.insertAdjacentHTML(
     'afterbegin',
     banks
@@ -191,7 +200,8 @@ bankList.addEventListener('click', event => {
     currentActiveBank.classList.remove('bank__item--active');
   }
 
-  const activeBankName = event.target.closest('li').firstElementChild.firstElementChild.textContent;
+  const activeBankName =
+    event.target.closest('li').firstElementChild.firstElementChild.textContent;
   const currentBank = banks.find(bank => bank.name === activeBankName);
 
   console.log(activeBankName);

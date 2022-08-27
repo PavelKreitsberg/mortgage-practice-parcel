@@ -61,7 +61,6 @@ function createBankList(banks) {
         'afterbegin',
         `<p>Bank list is empty.</p> <p>Please, click button to add.</p>`
       )
-      .join('');
     return;
   }
   bankListUl.insertAdjacentHTML(
@@ -204,7 +203,6 @@ bankList.addEventListener('click', event => {
     event.target.closest('li').firstElementChild.firstElementChild.textContent;
   const currentBank = banks.find(bank => bank.name === activeBankName);
 
-  console.log(activeBankName);
 
   if (event.target.nodeName === 'BUTTON') {
     event.target.className === 'button--delete'
@@ -219,11 +217,6 @@ bankList.addEventListener('click', event => {
   renderInfMarkup(currentBank);
 });
 
-// To do
-
-function removeBankFromList(bank) {
-  console.log(`Bank ${bank} deleted from the list`);
-}
 
 function editBankInfo({ name, interestRate, maxLoan, minPayment, loanTerm }) {
   const modalEditMarkup = `<div class="modal">
